@@ -1,7 +1,13 @@
-<script></script>
+<script setup>
+import Header from './components/Header.vue'
+
+Header
+</script>
 
 <template>
-  <h1>Привет</h1>
+  <div class="bg-white w-4/5 m-auto h-screen rounded-xl shadow-xl mt-14">
+    <Header />
+  </div>
 </template>
 
 <style></style>
