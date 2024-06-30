@@ -4,7 +4,8 @@ defineProps({
   title: String,
   price: Number,
   isFavorite: Boolean,
-  isAdded: Boolean
+  onClickAdd: Function,
+  onFavorite: Function
 })
 </script>
 
