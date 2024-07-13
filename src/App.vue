@@ -5,6 +5,7 @@ import Header from './components/Header.vue'
 import CardList from './components/CardList.vue'
 
 import Drawer from './components/Drawer.vue'
+import CartItem from './components/CartItem.vue'
 const items = ref([])
 const cart = ref([])
 const isDrawerOpen = ref(false)
@@ -25,7 +26,17 @@ const removeFromCart = (item) => {
   item.isAdded = false
 }
 
-const createOrder = async () => { 
+watch(
+  cart,
+  () => {
+    localStorage.setItem('cart', JSON.stringify(cart.value))
+  },
+  {
+    deep: true
+  }
+)
+
+const createOrder = async () => {
   try {
     const { data } = await axios.post(`https://9f06c5296276a65c.mokky.dev/orders`, {
       items: cart.value,
@@ -115,8 +126,16 @@ const fetchItems = async () => {
 }
 
 onMounted(async () => {
+  const localCart = localStorage.getItem('cart')
+  cart.value = localCart ? JSON.parse(localCart) : []
+
   await fetchItems()
   await fetchFavorites()
+
+  items.value = items.value.map((item) => ({
+    ...item,
+    isAdded: cart.value.some((CartItem) => CartItem.id === item.id)
+  }))
 })
 watch(filters, fetchItems)
 
