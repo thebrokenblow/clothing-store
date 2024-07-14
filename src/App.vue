@@ -5,7 +5,6 @@ import Header from './components/Header.vue'
 import CardList from './components/CardList.vue'
 
 import Drawer from './components/Drawer.vue'
-import CartItem from './components/CartItem.vue'
 const items = ref([])
 const cart = ref([])
 const isDrawerOpen = ref(false)
